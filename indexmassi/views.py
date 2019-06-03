@@ -9,20 +9,20 @@ def isint(s):
         return False
 
 
-def indexmassi(request):
+def weight_index(request):
     if request.method == "POST":
-        ves = request.POST.get("ves")
-        rost = request.POST.get("rost")
-        if not isint(ves) or not isint(rost):
+        weight = request.POST.get("weight")
+        height = request.POST.get("height")
+        if not isint(weight) or not isint(height):
             description = "Ты ввёл вообще не цифры!"
-            return render(request, 'indexmassi/index.html', {"pic": "static/img/0.png", "description": description})
-        elif int(rost) == 0 or (300 < int(rost) < 100) or (500 < int(ves) < 20):
+            return render(request, 'htmls/index.html', {"pic": "static/img/0.png", "description": description})
+        elif int(height) == 0 or (300 < int(height) < 100) or (500 < int(weight) < 20):
             description = "Делишь на ноль?"
-            return render(request, 'indexmassi/index.html', {"pic": "static/img/0.png", "description": description})
-        elif 300 < int(rost) or 100 > int(rost) or 500 < int(ves) or int(ves) < 20:
+            return render(request, 'htmls/index.html', {"pic": "static/img/0.png", "description": description})
+        elif 300 < int(height) or 100 > int(height) or 500 < int(weight) or int(weight) < 20:
             description = "Диапазон неверный!"
-            return render(request, 'indexmassi/index.html', {"pic": "static/img/0.png", "description": description})
-        im = round(int(ves)/((int(rost) * int(rost) / 10000)), 1)
+            return render(request, 'htmls/index.html', {"pic": "static/img/0.png", "description": description})
+        im = round(int(weight)/(int(height)*int(height)/10000), 1)
         if 1 <= im <= 16:
             description = "Выраженный дефицит массы"
             pic = "static/img/1.png"
@@ -47,7 +47,10 @@ def indexmassi(request):
         else:
             description = "Получен некорректный ИМТ!"
             pic = "static/img/0.png"
-        return render(request, 'indexmassi/index.html', {"message": format(im), "vashindexraventext": "Ваш индекс массы тела = ", "description": description, "pic": pic, "ves": ves, "rost": rost})
+        return render(request, 'htmls/index.html', {"message": format(im), 
+                                                         "your_index_description": "Ваш индекс массы тела = ", 
+                                                         "description": description, "pic": pic, "weight": weight, 
+                                                         "height": height})
     pic = "static/img/0.png"
-    return render(request, 'indexmassi/index.html',  {"pic": pic})
+    return render(request, 'htmls/index.html',  {"pic": pic})
 
