@@ -14,19 +14,16 @@ def indexmassi(request):
         ves = request.POST.get("ves")
         rost = request.POST.get("rost")
         if not isint(ves) or not isint(rost):
-            opisanie = "Ты ввёл вообще не цифры, гад!"
-            pic = "static/img/0.png"
-            return render(request, 'indexmassi/index.html', {"pic": pic, "opisanie": opisanie})
+            opisanie = "Ты ввёл вообще не цифры!"
+            return render(request, 'indexmassi/index.html', {"pic": "static/img/0.png", "opisanie": opisanie})
         elif int(rost) == 0 or (300 < int(rost) < 100) or (500 < int(ves) < 20):
-            opisanie = "Делишь на ноль, собака?"
-            pic = "static/img/0.png"
-            return render(request, 'indexmassi/index.html', {"pic": pic, "opisanie": opisanie})
-        elif int(rost) < 100 or (500 < int(ves) < 20):
-            opisanie = "Диапазон говно!"
-            pic = "static/img/0.png"
-            return render(request, 'indexmassi/index.html', {"pic": pic, "opisanie": opisanie})
+            opisanie = "Делишь на ноль?"
+            return render(request, 'indexmassi/index.html', {"pic": "static/img/0.png", "opisanie": opisanie})
+        elif 300 < int(rost) or 100 > int(rost) or 500 < int(ves) or int(ves) < 20:
+            opisanie = "Диапазон неверный!"
+            return render(request, 'indexmassi/index.html', {"pic": "static/img/0.png", "opisanie": opisanie})
         im = round(int(ves)/((int(rost) * int(rost) / 10000)), 1)
-        if 1 <= im < 16:
+        if 1 <= im <= 16:
             opisanie = "Вы дистрофан! Выраженный дефицит массы"
             pic = "static/img/1.png"
         elif 16 < im <= 18.5:
