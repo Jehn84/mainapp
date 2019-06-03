@@ -12,6 +12,7 @@ def isint(s):
 def im(weight, height):
     return round(int(weight)/(int(height)*int(height)/10000), 1)
 
+
 def weight_index(request):
     if request.method == "POST":
         weight = request.POST.get("weight")
@@ -25,8 +26,6 @@ def weight_index(request):
         elif 300 < int(height) or 100 > int(height) or 500 < int(weight) or int(weight) < 20:
             description = "Диапазон неверный!"
             return render(request, 'htmls/index.html', {"pic": "static/img/0.png", "description": description})
-        # im = round(int(weight)/(int(height)*int(height)/10000), 1)
-        im(weight, height)
         if 1 <= im(weight, height) <= 16:
             description = "Выраженный дефицит массы"
             pic = "static/img/1.png"
